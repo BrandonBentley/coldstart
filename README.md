@@ -1,5 +1,5 @@
 # Cold Start
-The purpose of this project is to provide a structured starting template for an HTTP based service that provides the following:
+The purpose of this project is to provide a structured starting template for an Go HTTP service that provides the following:
 - Basic Project Structure
 - Config Setup (via [viper](https://github.com/spf13/viper))
 - Dependency Injection (via [fx](https://go.uber.org/fx))
