@@ -10,3 +10,6 @@ coverage:
 
 gen:
 	@go generate ./...
+
+docker:
+	@docker build -t coldstart:latest -t coldstart:$$(git rev-parse --short HEAD) .
