@@ -6,7 +6,13 @@ The purpose of this project is to provide a structured starting template for an 
 - Mock Generation for Testing (via [mock](https://go.uber.org/mock))
 - HTTP Server Setup (via [gin](https://github.com/gin-gonic/gin))
 
-Setup
+
+### Installation
+``` bash
+go install github.com/BrandonBentley/coldstart
+```
+
+### Setup Requirements
 
 Install Go
 ``` bash
@@ -18,7 +24,7 @@ Add GOBIN to $Path in `.zprofile`
 printf "\nPATH=\$PATH:\$(go env GOPATH)/bin\n" >> ~/.zprofile
 ```
 
-Install Mockgen
+Install Mockgen (For mock generation)
 ``` bash
 go install go.uber.org/mock/mockgen@latest
 ```

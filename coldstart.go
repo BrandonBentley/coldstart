@@ -12,7 +12,7 @@ import (
 	"regexp"
 )
 
-//go:embed api client config entity service main.go go.mod go.sum Makefile .gitignore Dockerfile
+//go:embed api client config entity service main/main.go go.mod go.sum Makefile .gitignore Dockerfile
 var appDir embed.FS
 
 var folderNames = []string{
@@ -42,6 +42,16 @@ func main() {
 		os.Exit(1)
 	}
 
+	if os.Args[1] == "version" {
+		printVersion()
+		os.Exit(0)
+	}
+
+	if os.Args[1] == "help" {
+		printHelp()
+		os.Exit(0)
+	}
+
 	newModulePath := os.Args[1]
 
 	newModuleName := filepath.Base(newModulePath)
@@ -56,7 +66,11 @@ func main() {
 		readFolder(folderName)
 	}
 	for _, file := range files {
-		inFile, err := appDir.Open(file)
+		inputFileName := file
+		if inputFileName == "main.go" {
+			inputFileName = "main/" + inputFileName
+		}
+		inFile, err := appDir.Open(inputFileName)
 		if err != nil {
 			slog.Default().Error(
 				"failed to open file",
@@ -143,4 +157,13 @@ func readFolder(folderName string) {
 			files = append(files, fullPath)
 		}
 	}
+}
+
+func printVersion() {
+	fmt.Println("coldstart", "v0.1.0")
+}
+
+func printHelp() {
+	fmt.Println("usage:")
+	fmt.Println("   ", "coldstart", "[module_name]")
 }
