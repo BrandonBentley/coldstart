@@ -6,6 +6,14 @@ import (
 
 	"github.com/caarlos0/env/v11"
 	"github.com/joho/godotenv"
+	"go.uber.org/fx"
+)
+
+var Module = fx.Module(
+	"config",
+	fx.Provide(
+		NewConfig,
+	),
 )
 
 const (

@@ -6,19 +6,18 @@ import (
 	"github.com/BrandonBentley/coldstart/config"
 	"github.com/BrandonBentley/coldstart/entity"
 	"github.com/BrandonBentley/coldstart/service"
+	_ "github.com/BrandonBentley/slogctx/sloginit"
+
 	"go.uber.org/fx"
 )
 
 func main() {
 	app := fx.New(
-		fx.Provide(
-			config.NewConfig,
-		),
 		api.Module,
 		client.Module,
+		config.Module,
 		entity.Module,
 		service.Module,
 	)
-
 	app.Run()
 }
