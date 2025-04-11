@@ -9,7 +9,7 @@ The purpose of this project is to provide a structured starting template for an 
 
 ### Installation
 ``` bash
-go install github.com/BrandonBentley/coldstart@v0.1.0
+go install github.com/BrandonBentley/coldstart@v1.0.0
 ```
 
 ### Setup Requirements
