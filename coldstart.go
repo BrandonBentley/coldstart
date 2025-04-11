@@ -160,7 +160,7 @@ func readFolder(folderName string) {
 }
 
 func printVersion() {
-	fmt.Println("coldstart", "v0.1.0")
+	fmt.Println("coldstart", "v1.1.0")
 }
 
 func printHelp() {
