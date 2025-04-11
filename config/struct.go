@@ -1,18 +1,18 @@
 package config
 
 type Config struct {
-	App    App    `mapstructure:"app"`
-	Server Server `mapstructure:"server"`
+	App    App    `envPrefix:"APP_"`
+	Server Server `envPrefix:"SERVER_"`
 }
 
 type App struct {
-	Env string `mapstructure:"env"`
+	Env string `env:"ENV" envDefault:"dev"`
 }
 
 type Server struct {
-	Http Http `mapstructure:"http"`
+	Http Http `envPrefix:"HTTP_"`
 }
 
 type Http struct {
-	Port int `mapstructure:"port"`
+	Port int `env:"PORT" envDefault:"80"`
 }

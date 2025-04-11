@@ -1,11 +1,11 @@
 package config
 
 import (
+	"fmt"
 	"os"
-	"path"
 
-	"github.com/BrandonBentley/ezbind"
-	"github.com/spf13/viper"
+	"github.com/caarlos0/env/v11"
+	"github.com/joho/godotenv"
 )
 
 const (
@@ -14,47 +14,22 @@ const (
 	AppProd    = "prod"
 )
 
-const (
-	defaultConfigBasePath = "config/env"
-)
-
 func NewConfig() (*Config, error) {
-	cfg := viper.New()
-	cfg.SetConfigType("json")
-	cfg.SetConfigFile(getConfigPath())
+	loadDotEnv()
 
-	setDefaults(cfg)
-
-	err := cfg.ReadInConfig()
+	cfg, err := env.ParseAs[Config]()
 	if err != nil {
 		return nil, err
 	}
 
-	var config Config
-	ezbind.BindStruct(cfg, config)
+	fmt.Println(cfg.Server.Http.Port)
 
-	err = cfg.Unmarshal(&config)
-	if err != nil {
-		return nil, err
-	}
-
-	return &config, nil
+	return &cfg, nil
 }
 
-func getConfigPath() string {
-	appEnv := os.Getenv("APP_ENV")
-	switch appEnv {
-	case AppDev, AppStaging, AppProd:
-	default:
-		appEnv = AppDev
+func loadDotEnv() {
+	switch os.Getenv("APP_ENV") {
+	case "", AppDev:
+		godotenv.Load("config/env/dev.env")
 	}
-	return path.Join(getConfigBasePath(), appEnv+".json")
-}
-
-func getConfigBasePath() string {
-	basePath := os.Getenv("CONFIG_BASE_PATH")
-	if basePath == "" {
-		return defaultConfigBasePath
-	}
-	return basePath
 }
