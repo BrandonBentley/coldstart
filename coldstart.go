@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"runtime/debug"
 )
 
 //go:embed api client config entity service main/main.go go.mod go.sum Makefile .gitignore Dockerfile
@@ -160,7 +161,12 @@ func readFolder(folderName string) {
 }
 
 func printVersion() {
-	fmt.Println("coldstart", "v1.2.0")
+	version := "v?.?.?"
+	info, ok := debug.ReadBuildInfo()
+	if ok {
+		version = info.Main.Version
+	}
+	fmt.Println("coldstart", version)
 }
 
 func printHelp() {
